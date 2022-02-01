@@ -1,4 +1,4 @@
-package org.generation.BlogPessoal.model;
+package com.LojaDeGames.LojaDeGames.model;
 
 import java.util.List;
 
@@ -10,36 +10,37 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 @Entity
-@Table(name = "tb_usuario")
+@Table(name="usuario")
 public class Usuario {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
-	@NotNull
+	
+	@NotBlank
 	private String nome;
-
+	
 	@NotNull
-	@Email(message = "O atributo Usuário deve ser um email válido!")
+	private int idade;
+	
+	@NotBlank
+	@Email (message = "O atributo Usuário deve ser um email válido!")
 	private String usuario;
-
+	
 	@NotNull
 	@Size(min = 5, message = "A Senha deve ter no mínimo 5 caracteres")
 	private String senha;
-
-	private String foto;
-
+	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
-	private List<Postagem> postagem;
-
+	private List<Produto> produto;
 
 	public long getId() {
 		return id;
@@ -55,6 +56,14 @@ public class Usuario {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public int getIdade() {
+		return idade;
+	}
+
+	public void setIdade(int idade) {
+		this.idade = idade;
 	}
 
 	public String getUsuario() {
@@ -73,20 +82,12 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public String getFoto() {
-		return foto;
+	public List<Produto> getProduto() {
+		return produto;
 	}
 
-	public void setFoto(String foto) {
-		this.foto = foto;
+	public void setProduto(List<Produto> produto) {
+		this.produto = produto;
 	}
-
-	public List<Postagem> getPostagem() {
-		return postagem;
-	}
-
-	public void setPostagem(List<Postagem> postagem) {
-		this.postagem = postagem;
-	}
-
+	
 }
